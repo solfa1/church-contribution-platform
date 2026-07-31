@@ -1,36 +1,145 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Church Contribution Platform
 
-## Getting Started
+A web application for monitoring church contribution campaigns.
 
-First, run the development server:
+The platform allows a church to create a contribution campaign with a financial target and display the current progress towards that goal. As contributions are received, the platform calculates the total amount contributed, the remaining balance and the overall completion percentage.
+
+The application is being built with a production-first mindset using modern DevOps practices and will eventually support automatic payment verification through a payment provider.
+
+Technology
+
+Frontend
+
+* Next.js
+* TypeScript
+* Tailwind CSS
+
+Backend
+
+* Next.js Route Handlers
+* Prisma ORM
+* Zod
+
+Database
+
+* PostgreSQL
+
+Development
+
+* Docker
+* Docker Compose
+
+Infrastructure
+
+* AWS ECS Fargate
+* Amazon RDS
+* Amazon ECR
+* Terraform
+* GitHub Actions
+* Application Load Balancer
+* CloudWatch
+
+Project Structure
+
+```text
+app/
+components/
+prisma/
+public/
+terraform/
+compose.yaml
+package.json
+```
+
+Requirements
+
+* Node.js 20 or later
+* npm
+* Git
+* Docker
+* Docker Compose
+
+Setup
+
+Clone the repository.
+
+```bash
+git clone https://github.com/solfa1/church-contribution-platform.git
+cd church-contribution-platform
+```
+
+Install dependencies.
+
+```bash
+npm install
+```
+
+Create a `.env` file using the `.env.example` file.
+
+Start PostgreSQL.
+
+```bash
+docker compose up -d
+```
+
+Run the database migrations.
+
+```bash
+npx prisma migrate dev
+```
+
+Start the development server.
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open your browser and visit:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Useful Commands
 
-## Learn More
+Start PostgreSQL
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+docker compose up -d
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Stop PostgreSQL
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+docker compose down
+```
 
-## Deploy on Vercel
+View PostgreSQL logs
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+docker compose logs postgres
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open the PostgreSQL shell
+
+Validate the Prisma schema
+
+```bash
+npx prisma validate
+```
+
+Create a new migration
+
+```bash
+npx prisma migrate dev --name <migration-name>
+```
+
+Development Workflow
+
+* Create a feature branch.
+* Build one feature at a time.
+* Test before committing.
+* Use meaningful commit messages.
+* Push changes regularly.
+* Merge completed features into `main`.
+
