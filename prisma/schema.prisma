@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Campaign {
+  id         String   @id @default(cuid())
+  title      String
+  targetKobo BigInt
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  contributions Contribution[]
+}
+
+model Contribution {
+  id                   String   @id @default(cuid())
+  campaignId           String
+  amountKobo           BigInt
+  transactionReference String   @unique
+  createdAt            DateTime @default(now())
+
+  campaign Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@index([campaignId])
+}

@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: ccp-postgres
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_USER: church_user
+      POSTGRES_PASSWORD: church_password
+      POSTGRES_DB: church_contributions
+
+    ports:
+      - "5435:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U church_user -d church_contributions",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres_data:
